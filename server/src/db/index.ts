@@ -3,7 +3,7 @@
  */
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs'
 import { seedData } from '../seed.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -111,5 +111,7 @@ export function initDb(): void {
 }
 
 export function persist(): void {
+  const dir = dirname(dataFile)
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
   writeFileSync(dataFile, JSON.stringify(db, null, 2), 'utf-8')
 }

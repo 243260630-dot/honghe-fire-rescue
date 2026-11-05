@@ -55,9 +55,10 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
 
 async function start() {
   await initDb()
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running at http://localhost:${PORT}`)
-    console.log(`📊 API docs at http://localhost:${PORT}/api/health`)
+  const HOST = '0.0.0.0'
+  app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running at http://${HOST}:${PORT}`)
+    console.log(`📊 Healthcheck: /api/health`)
   })
 }
 
