@@ -35,16 +35,6 @@
               待审 {{ pendingCount }}
             </span>
           </button>
-          <a
-            href="#/admin"
-            target="_blank"
-            rel="noreferrer"
-            class="rounded-sm border border-white/25 bg-white/5 px-2.5 py-1 text-xs text-white/85 transition-colors hover:border-ember hover:bg-ember hover:text-white"
-            title="在新窗口/新页面中打开后台管理平台"
-            @click="$emit('admin')"
-          >
-            新窗口打开 ↗
-          </a>
         </div>
       </div>
     </div>
