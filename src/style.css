@@ -1,197 +1,82 @@
-/* ================================================
-   红河消防救援首页 - 设计稿还原
-   精确对照 Figma 预览数据
-   ================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=Oswald:wght@400;500;600;700&family=Barlow+Semi+Condensed:wght@500;600&display=swap');
+@import 'tailwindcss';
 
-:root {
-  /* ===== 设计稿精确颜色 ===== */
-  --navy: #0a2a55;              /* 页脚背景 */
-  --navy-700: #0e3a72;          /* 导航栏背景 */
-  --text-primary: #16233a;      /* 主文字色 深蓝灰 */
-  --text-muted: #5c6b82;        /* 辅助文字/日期 */
-  --accent: #e8541e;            /* 强调橙色 首页激活/H3标签 */
-  --gold: #ffd66b;              /* Header H1 金色文字 */
-  --card-bg: #ffffff;
-  --card-border: #dbe3ee;       /* 浅蓝灰边框 */
-  --card-shadow: 0 1px 3px 0 rgba(10, 42, 85, 0.06);
-  --radius-card: 6px;
-  --radius-btn: 4px;
+@theme {
+  --color-background: #eef2f7;
+  --color-foreground: #16233a;
+  --color-card: #ffffff;
+  --color-card-foreground: #16233a;
 
-  /* ===== 字体 ===== */
-  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-serif: "Noto Serif SC", "Source Han Serif SC", serif;
+  /* 火焰蓝 flame blue */
+  --color-navy: #0a2a55;
+  --color-navy-700: #0e3a72;
+  --color-navy-500: #1657a8;
+  --color-navy-300: #4d86cf;
+
+  /* 救援橙 rescue orange */
+  --color-ember: #e8541e;
+  --color-ember-600: #c9430f;
+  --color-ember-300: #f6a06f;
+
+  --color-primary: #0a2a55;
+  --color-primary-foreground: #ffffff;
+  --color-muted: #eaeff5;
+  --color-muted-foreground: #5c6b82;
+  --color-border: #dbe3ee;
+  --color-ring: #e8541e;
+
+  --font-serif: 'Noto Serif SC', serif;
+  --font-sans: 'Noto Sans SC', sans-serif;
+  --font-display: 'Oswald', sans-serif;
+  --font-num: 'Barlow Semi Condensed', sans-serif;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-html, body {
+html {
   font-family: var(--font-sans);
-  font-size: 16px;
-  color: var(--text-primary);
-  background: #ffffff;
-  line-height: 1.5;
+  color: var(--color-foreground);
+  background: var(--color-background);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-body { min-height: 100vh; }
-
-#app { min-height: 100vh; }
-
-a { color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
-a:hover { color: var(--accent); }
-
-ul, li { list-style: none; }
-
-img { max-width: 100%; display: block; }
-
-/* ===== 主内容容器 ===== */
-.main-wrapper {
-  max-width: 1180px;
-  margin: 0 auto;
-  padding: 16px 12px;
+body {
+  margin: 0;
 }
 
-/* 响应式断点覆盖时保持16px上下内边距 */
-@media (max-width: 1024px) {
-  .main-wrapper { padding: 16px 12px; }
-}
-
-/* ===== 卡片通用 ===== */
-.card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-card);
-  padding: 16px;
-  box-shadow: var(--card-shadow);
-}
-
-/* ===== 模块标题 ===== */
-.module-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.module-title {
-  font-family: var(--font-serif);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 28px;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.module-title::before {
-  content: '';
-  width: 4px;
-  height: 18px;
-  background: var(--accent);
-  border-radius: 2px;
-}
-
-.module-more {
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.module-more:hover { color: var(--accent); }
-
-/* ===== 通用列表 ===== */
-.item-list { display: flex; flex-direction: column; }
-
-.item-list .list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  font-size: 16px;
-  gap: 12px;
-}
-
-.item-list .list-item a {
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.item-list .list-item .date {
-  font-size: 14px;
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
-/* ===== 标签 ===== */
-.tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  font-size: 12px;
-  font-weight: 500;
-  border-radius: var(--radius-btn);
-  flex-shrink: 0;
-}
-
-.tag-accent { background: var(--accent); color: #fff; }
-.tag-blue { background: linear-gradient(135deg, #1657a8, var(--navy)); color: #fff; }
-
-/* ===== 滚动公告 ===== */
-.notice-bar {
-  height: 51px;
-  background: #fff;
-  border-bottom: 1px solid var(--card-border);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  gap: 16px;
-}
-
-.notice-label {
-  font-size: 12px;
-  font-weight: 700;
+/* selection */
+::selection {
+  background: var(--color-ember);
   color: #fff;
-  background: var(--navy);
-  padding: 4px 14px;
-  border-radius: var(--radius-btn);
-  flex-shrink: 0;
 }
 
-.notice-scroll {
-  flex: 1;
-  overflow: hidden;
-  font-size: 14px;
-  color: rgba(22, 35, 58, 0.8);
-  height: 20px;
+/* hide scrollbars until scrolling */
+.scroll-soft {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+.scroll-soft::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scroll-soft::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+}
+.scroll-soft:hover {
+  scrollbar-color: rgba(10, 42, 85, 0.35) transparent;
+}
+.scroll-soft:hover::-webkit-scrollbar-thumb {
+  background: rgba(10, 42, 85, 0.35);
 }
 
-.notice-scroll-inner {
-  animation: scrollUp 20s linear infinite;
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
 }
 
-@keyframes scrollUp {
-  0%, 20% { transform: translateY(0); }
-  25%, 45% { transform: translateY(-20px); }
-  50%, 70% { transform: translateY(-40px); }
-  75%, 95% { transform: translateY(-60px); }
-  100% { transform: translateY(0); }
-}
-
-/* ===== 辅助区域 ===== */
-.muted-section {
-  background: #eaeff5;
-  padding: 24px 0;
-}
-
-/* ===== 响应式 ===== */
-@media (max-width: 1024px) {
-  html, body { font-size: 15px; }
-  .main-wrapper { padding: 12px 8px; }
+@keyframes emberflicker {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
 }

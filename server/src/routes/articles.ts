@@ -5,14 +5,23 @@ const router = Router()
 
 // 列表
 router.get('/', (req, res) => {
-  const { category, subCategory, limit, keyword } = req.query as Record<string, string>
+  const q = req.query as Record<string, string | undefined>
+  const { category, subCategory, module, grassrootsTab, unit, status, q: keyword, limit } = q
   let list = [...db.articles]
 
   if (category) list = list.filter(a => a.category === category)
   if (subCategory) list = list.filter(a => a.subCategory === subCategory)
+  if (grassrootsTab) list = list.filter(a => a.grassrootsTab === grassrootsTab)
+  if (module) list = list.filter(a => a.module === module)
+  if (unit) list = list.filter(a => a.unit === unit)
+  if (status) list = list.filter(a => a.status === status)
   if (keyword) {
     const k = keyword.toLowerCase()
-    list = list.filter(a => a.title.toLowerCase().includes(k))
+    list = list.filter(a =>
+      a.title.toLowerCase().includes(k) ||
+      (a.content && a.content.toLowerCase().includes(k)) ||
+      (a.author && a.author.toLowerCase().includes(k))
+    )
   }
 
   list.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -35,18 +44,28 @@ router.post('/', (req, res) => {
   const maxId = db.articles.reduce((m, a) => Math.max(m, a.id), 0)
   const article: Article = {
     id: maxId + 1,
-    category: body.category || 'news',
-    subCategory: body.subCategory,
     title: body.title || '',
-    summary: body.summary,
-    content: body.content,
+    date: body.date || now.slice(0, 10),
+    category: body.category || '',
+    subCategory: body.subCategory,
+    grassrootsTab: body.grassrootsTab,
+    module: body.module,
+    unit: body.unit,
     author: body.author,
+    writerId: body.writerId,
+    auditor: body.auditor,
+    auditTime: body.auditTime,
+    isNew: body.isNew,
+    status: body.status,
+    rejectReason: body.rejectReason,
+    docNo: body.docNo,
+    content: body.content,
+    images: body.images,
+    summary: body.summary,
     source: body.source,
     location: body.location,
     cover: body.cover,
-    status: body.status,
     order: body.order,
-    date: body.date || now.slice(0, 10),
     created_at: now,
     updated_at: now,
   }

@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Server runtime data (不要提交运行时数据库)
+# Server runtime data (不要提交运行时数据库与上传文件)
 server/data/db.json
+server/data/uploads/

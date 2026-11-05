@@ -4,19 +4,24 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
+    "dev": "npm run tw && vite",
+    "build": "npm run tw && vue-tsc -b && vite build",
+    "tw": "tailwindcss -i src/style.css -o src/tailwind.css --minify",
     "preview": "vite preview",
     "start": "tsx server/src/index.ts",
     "seed": "tsx server/src/seed.ts"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
+    "@tailwindcss/cli": "^4.3.4",
+    "@wangeditor/editor": "^5.1.23",
+    "@wangeditor/editor-for-vue": "^5.1.12",
     "axios": "^1.21.0",
     "cors": "^2.8.6",
     "element-plus": "^2.14.7",
     "express": "^4.22.3",
     "pinia": "^4.1.0",
+    "tailwindcss": "^4.3.4",
     "vue": "^3.5.44",
     "vue-router": "^4.6.4"
   },

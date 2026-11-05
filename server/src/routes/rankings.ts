@@ -14,6 +14,7 @@ router.post('/', (req, res) => {
   const item: Ranking = {
     id: maxId + 1,
     unit: body.unit || '',
+    submitted: body.submitted,
     count: body.count || 0,
     month: body.month,
     created_at: now,
