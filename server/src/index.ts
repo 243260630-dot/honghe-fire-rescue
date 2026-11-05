@@ -87,13 +87,21 @@ app.use((err: any, _req: express.Request, res: express.Response, _next: express.
   res.status(500).json({ error: err.message || 'Internal Server Error' })
 })
 
+process.on('unhandledRejection', (e) => console.error('UNHANDLED REJECTION:', e))
+process.on('uncaughtException', (e) => console.error('UNCAUGHT EXCEPTION:', e))
+
 async function start() {
-  await initDb()
-  const HOST = '0.0.0.0'
-  app.listen(PORT, HOST, () => {
-    console.log(`🚀 Server running at http://${HOST}:${PORT}`)
-    console.log(`📊 Healthcheck: /api/health`)
-  })
+  try {
+    await initDb()
+    // 默认监听 ::（双栈），Railway 健康检查走 localhost/IPv6 也能连通
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running at port ${PORT} (env PORT=${process.env.PORT ?? '未设置'})`)
+      console.log(`📊 Healthcheck: /api/health`)
+    })
+  } catch (e) {
+    console.error('FATAL START ERROR:', e)
+    process.exit(1)
+  }
 }
 
 start()
