@@ -1,25 +1,32 @@
 {
-  "name": "hong",
+  "name": "hong-fire-rescue",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "tsx server/src/index.ts",
+    "seed": "tsx server/src/seed.ts"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "axios": "^1.21.0",
+    "cors": "^2.8.6",
     "element-plus": "^2.14.7",
+    "express": "^4.22.3",
     "pinia": "^4.1.0",
     "vue": "^3.5.44",
     "vue-router": "^4.6.4"
   },
   "devDependencies": {
-    "@types/node": "^24.19.2",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^22.20.5",
     "@vitejs/plugin-vue": "^6.0.10",
     "@vue/tsconfig": "^0.9.1",
+    "tsx": "^4.23.15",
     "typescript": "~6.0.3",
     "vite": "^8.3.5",
     "vue-tsc": "^3.3.13"
