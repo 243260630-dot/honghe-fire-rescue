@@ -1,5 +1,8 @@
 import express from 'express'
 import cors from 'cors'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
+import { existsSync } from 'fs'
 import { initDb, db } from './db/index.js'
 import articleRoutes from './routes/articles.js'
 import leaderRoutes from './routes/leaders.js'
@@ -32,6 +35,17 @@ app.use('/api/rankings', rankingRoutes)
 app.use('/api/notices', noticeRoutes)
 app.use('/api/banners', bannerRoutes)
 app.use('/api/site', siteRoutes)
+
+// 生产环境：托管前端构建产物（单服务部署，前后端同域名）
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const distDir = join(__dirname, '../../dist')
+if (existsSync(distDir)) {
+  app.use(express.static(distDir))
+  app.get('*', (_req, res) => {
+    res.sendFile(join(distDir, 'index.html'))
+  })
+  console.log(`📦 静态资源目录: ${distDir}`)
+}
 
 // 错误处理
 app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {

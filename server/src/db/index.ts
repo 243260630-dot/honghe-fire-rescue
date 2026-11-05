@@ -4,6 +4,7 @@
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
+import { seedData } from '../seed.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const dataFile = join(__dirname, '../../data/db.json')
@@ -89,7 +90,8 @@ export let db: DataSchema = defaultData()
 
 export function initDb(): void {
   if (!existsSync(dataFile)) {
-    console.log(`⚠️  db.json 不存在，创建空数据库于 ${dataFile}`)
+    console.log(`⚠️  db.json 不存在，使用种子数据初始化: ${dataFile}`)
+    db = JSON.parse(JSON.stringify(seedData)) as DataSchema
     persist()
     return
   }

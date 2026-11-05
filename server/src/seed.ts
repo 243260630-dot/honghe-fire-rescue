@@ -17,7 +17,7 @@ const iso = (daysAgo: number) => {
 }
 const dateStr = (daysAgo: number) => iso(daysAgo).slice(0, 10)
 
-const db = {
+export const seedData = {
   banners: [
     { id: 1, title: '红河州消防救援支队开展2026年度实战化演练', description: '赴汤蹈火 竭诚为民', bg: 'linear-gradient(135deg, #0e3a72, #e8541e)', order: 1, created_at: iso(30) },
     { id: 2, title: '消防安全宣传月活动正式启动', description: '关注消防 生命至上', bg: 'linear-gradient(135deg, #16233a, #0e3a72)', order: 2, created_at: iso(25) },
@@ -170,16 +170,21 @@ const db = {
   ],
 }
 
-if (existsSync(dataFile)) {
-  console.log('⚠️  db.json 已存在，将覆盖写入种子数据')
-}
+// 仅当直接运行本脚本时才写入文件（被 import 时只导出数据）
+const isMain = !!process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]
 
-writeFileSync(dataFile, JSON.stringify(db, null, 2), 'utf-8')
-console.log(`✅ 种子数据已写入 ${dataFile}`)
-console.log(`   - articles: ${db.articles.length}`)
-console.log(`   - banners: ${db.banners.length}`)
-console.log(`   - notices: ${db.notices.length}`)
-console.log(`   - leaders: ${db.leaders.length}`)
-console.log(`   - rankings: ${db.rankings.length}`)
-console.log(`   - users: ${db.users.length}`)
-console.log('   管理员账号: admin / admin123')
+if (isMain) {
+  if (existsSync(dataFile)) {
+    console.log('⚠️  db.json 已存在，将覆盖写入种子数据')
+  }
+
+  writeFileSync(dataFile, JSON.stringify(seedData, null, 2), 'utf-8')
+  console.log(`✅ 种子数据已写入 ${dataFile}`)
+  console.log(`   - articles: ${seedData.articles.length}`)
+  console.log(`   - banners: ${seedData.banners.length}`)
+  console.log(`   - notices: ${seedData.notices.length}`)
+  console.log(`   - leaders: ${seedData.leaders.length}`)
+  console.log(`   - rankings: ${seedData.rankings.length}`)
+  console.log(`   - users: ${seedData.users.length}`)
+  console.log('   管理员账号: admin / admin123')
+}

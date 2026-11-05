@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: honghe-fire-rescue
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install --include=dev && npm run build && cd server && npm install
+    startCommand: cd server && npx tsx src/index.ts
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
